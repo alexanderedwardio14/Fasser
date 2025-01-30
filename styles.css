@@ -1,0 +1,362 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f0f8ff;
+    text-align: center;
+    color: #333;
+}
+
+header {
+    background: linear-gradient(90deg, #0078d7, #00c6ff);
+    color: white;
+    padding: 1rem 0;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    background: #e6f7ff;
+    padding: 0.5rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #0078d7;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 1rem;
+}
+
+nav ul li {
+    position: relative;
+}
+
+nav ul li a, .dropbtn {
+    display: inline-block;
+    color: #0078d7;
+    text-align: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover, .dropdown:hover .dropbtn {
+    background-color: #cceeff;
+}
+
+nav ul li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e6f7ff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    flex-direction: column;
+}
+
+.dropdown-content a {
+    color: #0078d7;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #cceeff;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+section {
+    padding: 2rem;
+}
+
+.hero {
+    background: #e6f7ff;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+footer {
+    text-align: center;
+    background: #0078d7;
+    color: white;
+    padding: 1rem 0;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input, textarea, button {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #005bb5;
+}
+
+.map-container {
+    margin: 2rem auto;
+    max-width: 100%;
+}
+
+iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+}
+
+.vision-mission {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.vision, .mission {
+    flex: 1;
+    max-width: 500px;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.vision h3, .mission h3 {
+    color: #0078d7;
+    margin-bottom: 1rem;
+}
+.mission li{
+    text-align: left;
+}
+.blackbox {
+    display: flex;
+    justify-content: center;
+    gap: 10rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    background-color: grey;
+    color: white;
+    text-align: justify;
+}
+.blackbox a {
+    color: inherit; /* Menggunakan warna teks yang sama dengan elemen induk */
+    text-decoration: none; /* Menghilangkan garis bawah */
+}
+
+.blackbox a:hover {
+    text-decoration: underline; /* Opsional: Menambahkan garis bawah saat hover */
+}
+.carousel {
+    position: relative;
+    max-width: 100%;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-inner img {
+    width: 100%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.carousel-buttons {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.carousel-buttons button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-buttons button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#about p {
+    max-width: 1080px; /* Anda bisa menyesuaikan nilai ini sesuai kebutuhan */
+    margin: 0 auto; /* Untuk memusatkan paragraf */
+    text-align: justify; /* Opsional: untuk meratakan teks */
+}
+
+.contact-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.company-info {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.company-info a {
+    color: #0078d7;
+    text-decoration: none;
+}
+
+.company-info a:hover {
+    text-decoration: underline;
+}
+
+#contactForm {
+    flex: 2;
+    max-width: 600px;
+    width: 100%;
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+#contactForm input, #contactForm textarea {
+    width: calc(100% - 1.5rem); /* Menyesuaikan lebar input dengan padding */
+    padding: 0.75rem;
+    margin: 0.25rem 0; /* Menambahkan margin untuk spasi antar elemen */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+#contactForm button {
+    padding: 0.75rem 1.5rem;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 0.5rem; /* Menambahkan margin atas untuk spasi */
+}
+
+#contactForm button:hover {
+    background-color: #005bb5;
+}
+
+@media (max-width: 768px) {
+    .vision-mission {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .vision, .mission {
+        max-width: 100%;
+    }
+
+    .blackbox {
+        flex-direction: column;
+        padding-left: 2rem;
+        text-align: left;
+        gap: 1rem;
+    }
+    .carousel-inner img {
+        height: auto;
+    }
+    .carousel-buttons button {
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+        font-size: 2rem;
+        width: 30px;
+        height: 30px;
+        padding: 0;
+        font-size: 1rem;
+        border-radius: 50%;
+    }
+    .carousel-buttons {
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+    #contactForm {
+        padding: 1rem;
+    }
+
+    #contactForm input, #contactForm textarea {
+        font-size: 0.875rem;
+    }
+
+    #contactForm button {
+        font-size: 0.875rem;
+    }
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #contactForm, .company-info {
+        max-width: 100%;
+    }
+}
