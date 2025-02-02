@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -8,55 +9,57 @@ body {
     color: #333;
 }
 
+/* Header Styles */
 header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
     background: linear-gradient(90deg, #0078d7, #00c6ff);
     color: white;
-    padding: 1rem 0;
 }
 
+header img {
+    height: 50px; /* Sesuaikan tinggi logo */
+}
+
+/* Navigation Styles */
 nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    background: #e6f7ff;
-    padding: 0.5rem;
-}
-
-nav a {
-    text-decoration: none;
-    color: #0078d7;
-    font-weight: bold;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 1rem;
-}
-
-nav ul li {
     position: relative;
 }
 
-nav ul li a, .dropbtn {
-    display: inline-block;
-    color: #0078d7;
-    text-align: center;
-    padding: 0.5rem 1rem;
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-list li {
+    position: relative;
+}
+
+.nav-list a {
     text-decoration: none;
+    color: white;
     font-weight: bold;
 }
 
-nav ul li a:hover, .dropdown:hover .dropbtn {
-    background-color: #cceeff;
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
 }
 
-nav ul li.dropdown {
-    display: inline-block;
+.menu-toggle .bar {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    margin: 4px 0;
 }
 
+/* Dropdown Styles */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -83,6 +86,7 @@ nav ul li.dropdown {
     display: flex;
 }
 
+/* Section Styles */
 section {
     padding: 2rem;
 }
@@ -101,6 +105,7 @@ section {
     max-width: 1200px;
 }
 
+/* Footer Styles */
 footer {
     text-align: center;
     background: #0078d7;
@@ -168,9 +173,12 @@ iframe {
     color: #0078d7;
     margin-bottom: 1rem;
 }
-.mission li{
+
+.mission li {
     text-align: left;
 }
+
+/* Blackbox Styles */
 .blackbox {
     display: flex;
     justify-content: center;
@@ -181,6 +189,7 @@ iframe {
     color: white;
     text-align: justify;
 }
+
 .blackbox a {
     color: inherit; /* Menggunakan warna teks yang sama dengan elemen induk */
     text-decoration: none; /* Menghilangkan garis bawah */
@@ -189,6 +198,8 @@ iframe {
 .blackbox a:hover {
     text-decoration: underline; /* Opsional: Menambahkan garis bawah saat hover */
 }
+
+/* Carousel Styles */
 .carousel {
     position: relative;
     max-width: 100%;
@@ -239,12 +250,14 @@ iframe {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
+/* About Section Styles */
 #about p {
     max-width: 1080px; /* Anda bisa menyesuaikan nilai ini sesuai kebutuhan */
     margin: 0 auto; /* Untuk memusatkan paragraf */
     text-align: justify; /* Opsional: untuk meratakan teks */
 }
 
+/* Contact Form Styles */
 .contact-container {
     display: flex;
     flex-wrap: wrap;
@@ -306,6 +319,7 @@ iframe {
     background-color: #005bb5;
 }
 
+/* Mobile Styles */
 @media (max-width: 768px) {
     .vision-mission {
         flex-direction: column;
@@ -322,9 +336,11 @@ iframe {
         text-align: left;
         gap: 1rem;
     }
+
     .carousel-inner img {
         height: auto;
     }
+
     .carousel-buttons button {
         width: 100%;
         height: 100%;
@@ -336,10 +352,12 @@ iframe {
         font-size: 1rem;
         border-radius: 50%;
     }
+
     .carousel-buttons {
         justify-content: space-between;
         padding: 0 1rem;
     }
+
     #contactForm {
         padding: 1rem;
     }
@@ -351,6 +369,7 @@ iframe {
     #contactForm button {
         font-size: 0.875rem;
     }
+
     .contact-container {
         flex-direction: column;
         align-items: center;
@@ -358,5 +377,42 @@ iframe {
 
     #contactForm, .company-info {
         max-width: 100%;
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 250px;
+        background-color: #0078d7;
+        position: fixed;
+        top: 0;
+        left: -250px;
+        height: 100%;
+        padding: 1rem;
+        transition: left 0.3s ease;
+    }
+
+    .nav-list.active {
+        display: flex;
+        left: 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+    }
+
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .overlay.active {
+        display: block;
     }
 }

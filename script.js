@@ -1,3 +1,21 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.querySelector('.nav-list');
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
+
+    menuToggle.addEventListener('click', function() {
+        navList.classList.toggle('active');
+        overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', function() {
+        navList.classList.remove('active');
+        overlay.classList.remove('active');
+    });
+});
+
 document.getElementById('contactForm').addEventListener('submit', function(event) {
     var email = document.getElementById('email').value;
     var phone = document.getElementById('phone').value;
@@ -16,7 +34,7 @@ document.getElementById('contactForm').addEventListener('submit', function(event
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    emailjs.init("PWPeDwVXYMaN0piTj"); // YOUR_PUBLIC_KEY
+    emailjs.init("m37UcRwm5QPpHciiS"); // YOUR_PUBLIC_KEY
 
     let lastSubmitTime = 0;
     const submitDelay = 30000; // 30 detik
@@ -39,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
 
         // Kirim email menggunakan EmailJS
-        emailjs.send('service_zse6nc3', 'template_mn9o9s8', templateParams) // service ID , template ID
+        emailjs.send('service_dbx0jpp', 'template_ws4wbuk', templateParams) // service ID , template ID
             .then(function(response) {
                 console.log('SUCCESS!', response.status, response.text);
                 alert('Pesan berhasil dikirim ke email!');
@@ -52,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Kirim pesan ke WhatsApp
         var whatsappMessage = `Nama: ${templateParams.name}\nEmail: ${templateParams.email}\nNo Telepon: ${templateParams.phone}\nPesan: ${templateParams.message}`;
-        var whatsappUrl = `https://wa.me/08998253588?text=${encodeURIComponent(whatsappMessage)}`;
+        var whatsappUrl = `https://wa.me/6281283299924?text=${encodeURIComponent(whatsappMessage)}`;
         window.open(whatsappUrl, '_blank');
     });
 });

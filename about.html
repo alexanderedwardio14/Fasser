@@ -6,26 +6,33 @@
     <title>About Us - Fiber Optic Shop</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="./image/favicon.png" type="image/x-icon">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
-        <h1>Fasser</h1>
+        <img src="./image/logo.png" alt="Fasser Logo" class="logo">
+        <nav>
+            <div class="menu-toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="nav-list">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="about.html">Tentang Kami</a></li>
+                <li class="dropdown">
+                    <a href="products.html" class="dropbtn">Produk</a>
+                    <div class="dropdown-content">
+                        <a href="#">Product 1</a>
+                        <a href="#">Product 2</a>
+                        <a href="#">Product 3</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">Kontak Kami</a></li>
+            </ul>
+        </nav>
     </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li class="dropdown">
-                <a href="products.html" class="dropbtn">Products</a>
-                <div class="dropdown-content">
-                    <a href="#">Product 1</a>
-                    <a href="#">Product 2</a>
-                    <a href="#">Product 3</a>
-                </div>
-            </li>
-            <li><a href="contact.html">Contact Us</a></li>
-        </ul>
-    </nav>
+
     <section id="about">
         <h2>Tentang Kami</h2>
         <p>Selamat datang di Fasser, mitra terpercaya Anda dalam solusi kabel berkualitas tinggi. Kami adalah perusahaan yang berdedikasi untuk menyediakan produk kabel terbaik yang memenuhi berbagai kebutuhan pelanggan. Dengan pengalaman bertahun-tahun di industri ini, kami memahami pentingnya konektivitas yang handal dan efisien.</p>
