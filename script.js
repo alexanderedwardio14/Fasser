@@ -1,3 +1,168 @@
+// SheetDB configuration
+const sheetDBUrl = 'https://sheetdb.io/api/v1/k5wbpcwmfkwmn';
+const cacheDuration = 1 * 60 * 60 * 1000; // 1 hour in milliseconds
+
+// Load categories and products on page load
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('category-list')) {
+        const categoryList = document.getElementById('category-list');
+
+        // Check if data is already in localStorage and not expired
+        const cachedData = localStorage.getItem('products');
+        const cachedTimestamp = localStorage.getItem('productsTimestamp');
+        const now = new Date().getTime();
+
+        if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
+            const data = JSON.parse(cachedData);
+            console.log('Using cached data:', data);
+            loadCategoriesAndProducts(data);
+        } else {
+            fetch(sheetDBUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Fetched data:', data);
+                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                    localStorage.setItem('productsTimestamp', now); // Cache timestamp
+                    loadCategoriesAndProducts(data);
+                })
+                .catch(error => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
+    }
+
+    // Check if category is specified in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+        const cachedData = localStorage.getItem('products');
+        if (cachedData) {
+            const data = JSON.parse(cachedData);
+            displayProductsByCategory(category, data);
+        } else {
+            fetch(sheetDBUrl)
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                    displayProductsByCategory(category, data);
+                })
+                .catch(error => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
+    }
+});
+
+// Function to load categories and products
+function loadCategoriesAndProducts(data) {
+    const categoryList = document.getElementById('category-list');
+    const categories = [...new Set(data.map(product => product.Category))];
+    categories.forEach(category => {
+        const categoryItem = document.createElement('a');
+        categoryItem.href = `products.html?category=${category}`;
+        categoryItem.innerText = category;
+        categoryList.appendChild(categoryItem);
+    });
+
+    // Display all products when "Produk" is clicked
+    const allProductsLink = document.getElementById('all-products-link');
+    allProductsLink.addEventListener('click', function() {
+        displayAllProducts(data);
+    });
+
+    // Display all products by default
+    displayAllProducts(data);
+}
+
+// Function to display all products
+function displayAllProducts(data) {
+    const productGrid = document.getElementById('product-grid');
+    productGrid.innerHTML = ''; // Clear previous products
+    data.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+        productDiv.innerHTML = `
+            <h3>${product.Name}</h3>
+            <p>${product.Description}</p>
+            <img src="${product.Image}" alt="${product.Name}">
+            <button onclick="viewProductDetail('${product.ID}')">View Details</button>
+        `;
+        productGrid.appendChild(productDiv);
+    });
+}
+
+// Function to display products by category
+function displayProductsByCategory(category, data) {
+    const productGrid = document.getElementById('product-grid');
+    productGrid.innerHTML = ''; // Clear previous products
+    const filteredProducts = data.filter(product => product.Category === category);
+    filteredProducts.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+        productDiv.innerHTML = `
+            <h3>${product.Name}</h3>
+            <p>${product.Description}</p>
+            <img src="${product.Image}" alt="${product.Name}">
+            <button onclick="viewProductDetail('${product.ID}')">View Details</button>
+        `;
+        productGrid.appendChild(productDiv);
+    });
+}
+
+// Function to redirect to product detail page
+function viewProductDetail(productId) {
+    window.location.href = `productdetail.html?id=${productId}`;
+}
+
+// Load product detail and display it on the product detail page
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('product-detail')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+
+        if (productId) {
+            const cachedData = localStorage.getItem('products');
+            if (cachedData) {
+                const data = JSON.parse(cachedData);
+                const product = data.find(p => p.ID === productId);
+                if (product) {
+                    displayProductDetail(product);
+                } else {
+                    fetchProductDetail(productId);
+                }
+            } else {
+                fetchProductDetail(productId);
+            }
+        }
+    }
+});
+
+// Function to fetch product detail from SheetDB
+function fetchProductDetail(productId) {
+    fetch(`${sheetDBUrl}/search?ID=${productId}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log data to console
+            if (data.length > 0) {
+                const product = data[0];
+                displayProductDetail(product);
+            } else {
+                console.log("No such document!");
+            }
+        })
+        .catch(error => {
+            console.log("Error getting document:", error);
+        });
+}
+
+// Function to display product detail
+function displayProductDetail(product) {
+    document.getElementById('product-name').innerText = product.Name;
+    document.getElementById('product-description').innerText = product.Description;
+    document.getElementById('product-price').innerText = `Price: ${product.prices}`;
+    document.getElementById('product-image').src = product.Image;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const menuToggle = document.getElementById('mobile-menu');
     const navList = document.querySelector('.nav-list');
