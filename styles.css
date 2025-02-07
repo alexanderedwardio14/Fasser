@@ -7,6 +7,7 @@ body {
     background-color: #f0f8ff;
     text-align: center;
     color: #333;
+    overflow-x: hidden; /* Tambahkan ini untuk menghindari overflow horizontal */
 }
 
 /* Header Styles */
@@ -17,15 +18,19 @@ header {
     padding: 1rem;
     background: linear-gradient(90deg, #0078d7, #00c6ff);
     color: white;
+    width: 100%; /* Pastikan header memiliki lebar 100% */
+    box-sizing: border-box; /* Tambahkan ini untuk memastikan padding dan border termasuk dalam lebar */
 }
 
 header img {
     height: 50px; /* Sesuaikan tinggi logo */
+    margin-right: auto; /* Tambahkan ini untuk menempatkan logo di kiri */
 }
 
 /* Navigation Styles */
 nav {
     position: relative;
+    margin-left: auto; /* Tambahkan ini untuk menempatkan navigasi di kanan */
 }
 
 .nav-list {
@@ -432,6 +437,7 @@ iframe {
         height: 100%;
         padding: 1rem;
         transition: left 0.3s ease;
+        z-index: 2; /* Pastikan nav-list berada di atas overlay */
     }
 
     .nav-list.active {
@@ -456,5 +462,36 @@ iframe {
 
     .overlay.active {
         display: block;
+    }
+}
+
+/* Header fixed on desktop */
+@media (min-width: 768px) {
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background-color: white; /* Adjust as needed */
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
+    }
+
+    body {
+        padding-top: 60px; /* Adjust based on the height of your header */
+    }
+}
+
+/* Header normal on mobile */
+@media (max-width: 767px) {
+    header {
+        position: relative;
+        top: auto;
+        width: 100%;
+        background-color: white; /* Adjust as needed */
+        box-shadow: none; /* Remove shadow on mobile */
+    }
+
+    body {
+        padding-top: 0;
     }
 }
