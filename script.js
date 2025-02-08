@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', function() {
             name: document.getElementById('name').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
+            company: document.getElementById('company').value,
             message: document.getElementById('message').value
         };
 
@@ -234,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
         // Kirim pesan ke WhatsApp
-        var whatsappMessage = `Nama: ${templateParams.name}\nEmail: ${templateParams.email}\nNo Telepon: ${templateParams.phone}\nPesan: ${templateParams.message}`;
+        var whatsappMessage = `Nama: ${templateParams.name}\nEmail: ${templateParams.email}\nNo Telepon: ${templateParams.phone}\nNama Perusahaan: ${templateParams.company}\nPesan: ${templateParams.message}`;
         var whatsappUrl = `https://wa.me/6281283299924?text=${encodeURIComponent(whatsappMessage)}`;
         window.open(whatsappUrl, '_blank');
     });
