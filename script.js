@@ -159,8 +159,19 @@ function fetchProductDetail(productId) {
 function displayProductDetail(product) {
     document.getElementById('product-name').innerText = product.Name;
     document.getElementById('product-description').innerText = product.Description;
-    document.getElementById('product-price').innerText = `Price: ${product.prices}`;
+    //document.getElementById('product-datasheet').innerText = `Datasheet: ${product.Datasheet}`;
     document.getElementById('product-image').src = product.Image;
+
+    // Tambahkan tombol download PDF
+    const downloadButton = document.createElement('button');
+    downloadButton.innerText = 'Download Datasheet';
+    downloadButton.addEventListener('click', function() {
+        window.open(product.Datasheet, '_blank');
+    });
+
+    // Tambahkan tombol ke elemen dengan id 'product-detail'
+    const productDetail = document.getElementById('product-detail');
+    productDetail.appendChild(downloadButton);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
