@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="./image/favicon.png" type="image/x-icon">
     <script src="script.js" defer></script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
 </head>
 <body>
     <header>
@@ -73,5 +76,40 @@
     <footer>
         <p>&copy; 2025 Fiber Optic Shop. All rights reserved.</p>
     </footer>
+    <!-- Tambahkan tombol Help dan form -->
+    <button id="help-button">
+        <img src="./image/icon-mail.png" alt="Help Icon" class="help-icon">
+    </button>
+    <div id="help-form" class="help-form">
+        <form id="helpContactForm">
+            <h3>Kontak Form</h3>
+            <input type="text" id="help-name" name="name" placeholder="Nama" required>
+            
+            <input type="email" id="help-email" name="email" placeholder="Email" required>
+            
+            <input type="tel" id="help-phone" name="phone" placeholder="No Telepon" pattern="[0-9]{10,15}" required>
+            
+            <input type="text" id="help-company" name="company" placeholder="Nama Perusahaan" required>
+
+            <textarea id="help-message" name="message" rows="4" placeholder="Pesan" required></textarea>
+            
+            <button type="submit">Kirim</button>
+        </form>
+    </div>
+    <script>
+
+        // JavaScript untuk tombol Help dan form
+        const helpButton = document.getElementById('help-button');
+        const helpForm = document.getElementById('help-form');
+
+        helpButton.addEventListener('click', function() {
+            helpForm.classList.toggle('active');
+        });
+
+        document.getElementById('helpContactForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah form submit default
+            sendFormData('helpContactForm', 'help-name', 'help-email', 'help-phone', 'help-company', 'help-message');
+        });
+    </script>
 </body>
 </html>

@@ -209,45 +209,56 @@ document.getElementById('contactForm').addEventListener('submit', function(event
     }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+// Function to send form data using EmailJS and WhatsApp
+function sendFormData(formId, nameId, emailId, phoneId, companyId, messageId, lastSubmitTime, submitDelay) {
     emailjs.init("m37UcRwm5QPpHciiS"); // YOUR_PUBLIC_KEY
+    const currentTime = new Date().getTime();
+    if (currentTime - lastSubmitTime < submitDelay) {
+        alert('Tunggu beberapa saat sebelum mengirim lagi.');
+        return;
+    }
+
+    // Ambil data form
+    var templateParams = {
+        name: document.getElementById(nameId).value,
+        email: document.getElementById(emailId).value,
+        phone: document.getElementById(phoneId).value,
+        company: document.getElementById(companyId).value,
+        message: document.getElementById(messageId).value
+    };
+
+    // Kirim email menggunakan EmailJS
+    emailjs.send('service_dbx0jpp', 'template_ws4wbuk', templateParams) // service ID , template ID
+        .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            alert('Pesan berhasil dikirim ke email!');
+            document.getElementById(formId).reset(); // Reset form setelah berhasil dikirim
+            lastSubmitTime = new Date().getTime(); // Update waktu submit terakhir
+        }, function(error) {
+            console.log('FAILED...', error);
+            alert('Pesan gagal dikirim ke email. Silakan coba lagi.');
+        });
+
+    // Kirim pesan ke WhatsApp
+    var whatsappMessage = `Nama: ${templateParams.name}\nEmail: ${templateParams.email}\nNo Telepon: ${templateParams.phone}\nNama Perusahaan: ${templateParams.company}\nPesan: ${templateParams.message}`;
+    var whatsappUrl = `https://wa.me/6281283299924?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappUrl, '_blank');
+}
+
+// Inisialisasi EmailJS dan tambahkan event listener pada form
+document.addEventListener('DOMContentLoaded', function() {
+    
 
     let lastSubmitTime = 0;
     const submitDelay = 30000; // 30 detik
 
     document.getElementById('contactForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Mencegah form submit default
+        sendFormData('contactForm', 'name', 'email', 'phone', 'company', 'message', lastSubmitTime, submitDelay);
+    });
 
-        const currentTime = new Date().getTime();
-        if (currentTime - lastSubmitTime < submitDelay) {
-            alert('Tunggu beberapa saat sebelum mengirim lagi.');
-            return;
-        }
-
-        // Ambil data form
-        var templateParams = {
-            name: document.getElementById('name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value,
-            company: document.getElementById('company').value,
-            message: document.getElementById('message').value
-        };
-
-        // Kirim email menggunakan EmailJS
-        emailjs.send('service_dbx0jpp', 'template_ws4wbuk', templateParams) // service ID , template ID
-            .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                alert('Pesan berhasil dikirim ke email!');
-                document.getElementById('contactForm').reset(); // Reset form setelah berhasil dikirim
-                lastSubmitTime = new Date().getTime(); // Update waktu submit terakhir
-            }, function(error) {
-                console.log('FAILED...', error);
-                alert('Pesan gagal dikirim ke email. Silakan coba lagi.');
-            });
-
-        // Kirim pesan ke WhatsApp
-        var whatsappMessage = `Nama: ${templateParams.name}\nEmail: ${templateParams.email}\nNo Telepon: ${templateParams.phone}\nNama Perusahaan: ${templateParams.company}\nPesan: ${templateParams.message}`;
-        var whatsappUrl = `https://wa.me/6281283299924?text=${encodeURIComponent(whatsappMessage)}`;
-        window.open(whatsappUrl, '_blank');
+    document.getElementById('helpContactForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Mencegah form submit default
+        sendFormData('helpContactForm', 'help-name', 'help-email', 'help-phone', 'help-company', 'help-message', lastSubmitTime, submitDelay);
     });
 });

@@ -495,3 +495,70 @@ iframe {
         padding-top: 0;
     }
 }
+
+/* Tambahkan CSS untuk tombol Help dan form */
+#help-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1000; /* Pastikan tombol berada di atas elemen lainnya */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.help-icon {
+    width: 100px;
+    height: 100px;
+}
+
+#help-form {
+    display: none;
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Pastikan form berada di atas elemen lainnya */
+}
+
+#help-form.active {
+    display: block;
+}
+
+#help-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+#help-form label {
+    margin-bottom: 5px;
+}
+
+#help-form input, #help-form textarea, #help-form button {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#help-form button {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#help-form button:hover {
+    background-color: #005bb5;
+}
