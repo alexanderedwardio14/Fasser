@@ -366,6 +366,56 @@ iframe {
     margin-top: 0;
 }
 
+/* Styles for Product Detail */
+.product-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px auto;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+    flex: 2;
+    margin-right: 20px;
+}
+
+.product-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info h2 {
+    margin-top: 0;
+}
+
+.product-info p {
+    white-space: pre-wrap;
+}
+
+.product-info button {
+    align-self: flex-start;
+    padding: 10px 20px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.product-info button:hover {
+    background-color: #005bb5;
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
     .vision-mission {
@@ -560,5 +610,22 @@ iframe {
 }
 
 #help-form button:hover {
+    background-color: #005bb5;
+}
+
+/* Tambahkan kelas untuk mengatur lebar tombol */
+.button-small {
+    max-width: 200px; /* Atur lebar maksimum tombol */
+    padding: 10px 20px;
+    font-size: 0.875rem; /* Ukuran font lebih kecil */
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center; /* Pastikan teks berada di tengah */
+}
+
+.button-small:hover {
     background-color: #005bb5;
 }

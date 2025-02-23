@@ -7,9 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="./image/favicon.png" type="image/x-icon">
     <script src="script.js" defer></script>
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <header>
@@ -33,11 +31,15 @@
             </ul>
         </nav>
     </header>
-    <section id="product-detail">
-        <h2 id="product-name">Product Name</h2>
-        <img id="product-image" src="" alt="Product Image" style="max-width: 100%; height: auto;">
-        <p id="product-description" style="white-space: pre-wrap;">Product Description</p>
-        <p id="product-datasheet">Product Datasheet</p>
+    <section id="product-detail" class="product-detail">
+        <div class="product-image">
+            <img id="product-image" src="./assets/product-image.jpg" alt="Product Image">
+        </div>
+        <div class="product-info">
+            <h2 id="product-name">Product Name</h2>
+            <p id="product-description">Product Description</p>
+            
+        </div>
     </section>
     <div class="blackbox">
         <div class="aboutus">
@@ -97,7 +99,6 @@
         </form>
     </div>
     <script>
-
         // JavaScript untuk tombol Help dan form
         const helpButton = document.getElementById('help-button');
         const helpForm = document.getElementById('help-form');

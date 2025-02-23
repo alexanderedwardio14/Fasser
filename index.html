@@ -36,9 +36,7 @@
 
     <div class="carousel">
         <div class="carousel-inner">
-            <img src="./assets/banner1.jpg" alt="Placeholder 1">
-            <img src="./assets/banner2.jpg" alt="Placeholder 2">
-            <img src="./assets/banner3.jpg" alt="Placeholder 3">
+            <!-- Gambar carousel akan dimuat di sini -->
         </div>
         <div class="carousel-buttons">
             <button id="prev">&#10094;</button>
@@ -114,37 +112,93 @@
     </footer>
 </body>
 <script>
-    const carousel = document.querySelector('.carousel-inner');
-    const images = document.querySelectorAll('.carousel img');
-    const totalImages = images.length;
-    let index = 0;
+    const sheetDBUrl = 'https://sheetdb.io/api/v1/2hl1pmtu3t87a';
 
-    document.getElementById('prev').addEventListener('click', () => {
-        index = (index > 0) ? index - 1 : totalImages - 1;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-    });
+    // Function to fetch carousel images from SheetDB
+    function fetchCarouselImages() {
+        fetch(`${sheetDBUrl}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    console.log(data);
+                    displayCarouselImages(data);
+                } else {
+                    console.log("No carousel images found!");
+                }
+            })
+            .catch(error => {
+                console.log("Error getting carousel images:", error);
+            });
+    }
 
-    document.getElementById('next').addEventListener('click', () => {
-        index = (index < totalImages - 1) ? index + 1 : 0;
-        carousel.style.transform = `translateX(-${index * 100}%)`;
-    });
-
-    let currentIndex = 0;
-    const slides = document.querySelectorAll('.carousel-inner img');
-    const totalSlides = slides.length;
-
-    function showSlide(index) {
+    // Function to display carousel images
+    function displayCarouselImages(images) {
         const carouselInner = document.querySelector('.carousel-inner');
-        carouselInner.style.transform = `translateX(-${index * 100}%)`;
+        carouselInner.innerHTML = ''; // Clear existing images
+
+        images.forEach((image, index) => {
+            const imgElement = document.createElement('img');
+            let imgSrc = image.gambar;
+
+            console.log(`Original image URL: ${imgSrc}`); // Log original URL
+
+            // Check if the URL is a Google Drive share link and convert it to a direct link
+            if (imgSrc.includes('drive.google.com/file/d/')) {
+                const driveId = imgSrc.split('/d/')[1].split('/')[0]; // Extract the file ID
+                imgSrc = `https://drive.google.com/uc?export=view&id=${driveId}`; // Convert to direct link
+            }
+
+            console.log(`Converted image URL: ${imgSrc}`); // Log converted URL
+
+            imgElement.src = imgSrc;
+            imgElement.alt = `Carousel Image ${index + 1}`;
+            imgElement.onerror = function() {
+                console.log(`Error loading image: ${imgSrc}`);
+            };
+            carouselInner.appendChild(imgElement);
+        });
+
+        // Reinitialize carousel functionality
+        initializeCarousel();
     }
 
-    function nextSlide() {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        showSlide(currentIndex);
+    // Function to initialize carousel functionality
+    function initializeCarousel() {
+        const carousel = document.querySelector('.carousel-inner');
+        const images = document.querySelectorAll('.carousel-inner img');
+        const totalImages = images.length;
+        let index = 0;
+
+        document.getElementById('prev').addEventListener('click', () => {
+            index = (index > 0) ? index - 1 : totalImages - 1;
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+        });
+
+        document.getElementById('next').addEventListener('click', () => {
+            index = (index < totalImages - 1) ? index + 1 : 0;
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+        });
+
+        let currentIndex = 0;
+        const totalSlides = images.length;
+
+        function showSlide(index) {
+            carousel.style.transform = `translateX(-${index * 100}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        // Auto-slide every 5 seconds
+        setInterval(nextSlide, 5000);
     }
 
-    // Auto-slide every 5 seconds
-    setInterval(nextSlide, 5000);
+    // Fetch carousel images on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        fetchCarouselImages();
+    });
 
     // JavaScript untuk tombol Help dan form
     const helpButton = document.getElementById('help-button');

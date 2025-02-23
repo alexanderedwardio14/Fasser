@@ -158,20 +158,20 @@ function fetchProductDetail(productId) {
 // Function to display product detail
 function displayProductDetail(product) {
     document.getElementById('product-name').innerText = product.Name;
-    document.getElementById('product-description').innerText = product.Description;
-    //document.getElementById('product-datasheet').innerText = `Datasheet: ${product.Datasheet}`;
+    document.getElementById('product-description').innerHTML = product.Description;
     document.getElementById('product-image').src = product.Image;
 
     // Tambahkan tombol download PDF
     const downloadButton = document.createElement('button');
     downloadButton.innerText = 'Download Datasheet';
+    downloadButton.classList.add('button-small'); // Tambahkan kelas CSS baru
     downloadButton.addEventListener('click', function() {
         window.open(product.Datasheet, '_blank');
     });
 
-    // Tambahkan tombol ke elemen dengan id 'product-detail'
-    const productDetail = document.getElementById('product-detail');
-    productDetail.appendChild(downloadButton);
+    // Tambahkan tombol ke elemen dengan id 'product-info'
+    const productInfo = document.querySelector('.product-info');
+    productInfo.appendChild(downloadButton);
 }
 
 document.addEventListener('DOMContentLoaded', function() {
