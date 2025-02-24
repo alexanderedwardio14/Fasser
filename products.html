@@ -35,6 +35,13 @@
     </header>
     <section id="products">
         <h2>Our Products</h2>
+        <div class="product-filters">
+            <label for="category">Category:</label>
+            <select id="category">
+                <option value="all">All</option>
+                <!-- Kategori akan dimuat di sini -->
+            </select>
+        </div>
         <div class="product-grid" id="product-grid">
             <!-- Produk akan dimuat di sini -->
         </div>
@@ -97,7 +104,6 @@
         </form>
     </div>
     <script>
-
         // JavaScript untuk tombol Help dan form
         const helpButton = document.getElementById('help-button');
         const helpForm = document.getElementById('help-form');
@@ -109,6 +115,20 @@
         document.getElementById('helpContactForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Mencegah form submit default
             sendFormData('helpContactForm', 'help-name', 'help-email', 'help-phone', 'help-company', 'help-message');
+        });
+
+        // JavaScript untuk filter produk
+        document.getElementById('category').addEventListener('change', function() {
+            const selectedCategory = this.value;
+            const products = document.querySelectorAll('.product-card');
+
+            products.forEach(product => {
+                if (selectedCategory === 'all' || product.dataset.category === selectedCategory) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>

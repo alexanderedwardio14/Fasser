@@ -327,9 +327,50 @@ iframe {
 /* Product Grid Styles */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    padding: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer; /* Tambahkan ini untuk mengubah kursor menjadi pointer */
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.product-card .product-info {
+    padding: 15px;
+}
+
+.product-card .product-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.product-card .product-info p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.product-card .product-info .price {
+    font-size: 1.1em;
+    color: #000;
+    font-weight: bold;
+}
+
+.product-filters {
+    margin-bottom: 20px;
 }
 
 .product {

@@ -53,15 +53,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Function to load categories and products
-function loadCategoriesAndProducts(data) {
+// Function to fill category dropdown in navbar
+function fillCategoryDropdown(categories) {
     const categoryList = document.getElementById('category-list');
-    const categories = [...new Set(data.map(product => product.Category))];
+    categoryList.innerHTML = ''; // Clear previous categories
+
     categories.forEach(category => {
         const categoryItem = document.createElement('a');
         categoryItem.href = `products.html?category=${category}`;
         categoryItem.innerText = category;
         categoryList.appendChild(categoryItem);
+    });
+}
+
+// Function to load categories and products
+function loadCategoriesAndProducts(data) {
+    const categorySelect = document.getElementById('category');
+    const categories = [...new Set(data.map(product => product.Category))];
+
+    fillCategoryDropdown(categories); // Panggil fungsi untuk mengisi dropdown kategori di navbar
+
+    categories.forEach(category => {
+        const categoryOption = document.createElement('option');
+        categoryOption.value = category;
+        categoryOption.innerText = category;
+        categorySelect.appendChild(categoryOption);
     });
 
     // Display all products when "Produk" is clicked
@@ -80,13 +96,17 @@ function displayAllProducts(data) {
     productGrid.innerHTML = ''; // Clear previous products
     data.forEach(product => {
         const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
+        productDiv.classList.add('product-card');
+        productDiv.dataset.category = product.Category;
         productDiv.innerHTML = `
-            <h3>${product.Name}</h3>
-            <p>${product.Description}</p>
             <img src="${product.Image}" alt="${product.Name}">
-            <button onclick="viewProductDetail('${product.ID}')">View Details</button>
+            <div class="product-info">
+                <h3>${product.Name}</h3>
+            </div>
         `;
+        productDiv.addEventListener('click', function() {
+            viewProductDetail(product.ID);
+        });
         productGrid.appendChild(productDiv);
     });
 }
@@ -98,13 +118,17 @@ function displayProductsByCategory(category, data) {
     const filteredProducts = data.filter(product => product.Category === category);
     filteredProducts.forEach(product => {
         const productDiv = document.createElement('div');
-        productDiv.classList.add('product');
+        productDiv.classList.add('product-card');
+        productDiv.dataset.category = product.Category;
         productDiv.innerHTML = `
-            <h3>${product.Name}</h3>
-            <p>${product.Description}</p>
             <img src="${product.Image}" alt="${product.Name}">
-            <button onclick="viewProductDetail('${product.ID}')">View Details</button>
+            <div class="product-info">
+                <h3>${product.Name}</h3>
+            </div>
         `;
+        productDiv.addEventListener('click', function() {
+            viewProductDetail(product.ID);
+        });
         productGrid.appendChild(productDiv);
     });
 }
@@ -130,6 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     fetchProductDetail(productId);
                 }
+                fillCategoryDropdown([...new Set(data.map(product => product.Category))]); // Panggil fungsi untuk mengisi dropdown kategori di navbar
             } else {
                 fetchProductDetail(productId);
             }
