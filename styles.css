@@ -327,9 +327,11 @@ iframe {
 /* Product Grid Styles */
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(5, 1fr); /* Tampilkan 5 produk per baris */
     gap: 20px;
     padding: 20px;
+    max-width: 1200px; /* Atur lebar maksimum */
+    margin: 0 auto; /* Gunakan margin otomatis untuk menengahkannya */
 }
 
 .product-card {
@@ -338,6 +340,9 @@ iframe {
     overflow: hidden;
     transition: transform 0.3s;
     cursor: pointer; /* Tambahkan ini untuk mengubah kursor menjadi pointer */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-card:hover {
@@ -351,22 +356,18 @@ iframe {
 
 .product-card .product-info {
     padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .product-card .product-info h3 {
     margin: 0;
     font-size: 1.2em;
-}
-
-.product-card .product-info p {
-    margin: 10px 0;
-    color: #555;
-}
-
-.product-card .product-info .price {
-    font-size: 1.1em;
-    color: #000;
-    font-weight: bold;
+    overflow: hidden; /* Sembunyikan overflow untuk menghindari scrollbar */
+    text-overflow: ellipsis; /* Tambahkan elipsis jika teks terlalu panjang */
+    white-space: nowrap; /* Pastikan teks tidak membungkus */
 }
 
 .product-filters {
@@ -553,6 +554,10 @@ iframe {
 
     .overlay.active {
         display: block;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tampilkan 2 produk per baris pada tampilan mobile */
     }
 }
 
@@ -773,7 +778,7 @@ iframe {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Tampilkan 3 produk per baris */
     gap: 20px;
-    overflow: hidden !important; /* Sembunyikan produk yang melampaui lebar grid */
+    overflow: hidden; /* Sembunyikan produk yang melampaui lebar grid */
     max-width: 900px; /* Atur lebar maksimum grid */
     margin: 0 auto; /* Gunakan margin otomatis untuk menengahkannya */
 }
@@ -992,5 +997,14 @@ iframe {
 
     .product-info p {
         margin-bottom: 20px;
+    }
+
+    /* Hilangkan padding-right pada related products */
+    .related-products {
+        padding: 0px;
+    }
+
+    .related-products .product-grid {
+        padding: 0px;
     }
 }
