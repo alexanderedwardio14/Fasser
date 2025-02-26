@@ -186,6 +186,19 @@ function displayProductDetail(product) {
     document.getElementById('product-description').innerHTML = product.Description;
     document.getElementById('product-image').src = product.Image;
 
+    // Tambahkan spesifikasi produk secara dinamis dalam bentuk tabel
+    const productSpecs = document.getElementById('product-specs');
+    productSpecs.innerHTML = '<h3>Spesifikasi Produk</h3><table class="product-specs-table"><tbody></tbody></table>';
+    const specsTableBody = productSpecs.querySelector('tbody');
+
+    for (const [key, value] of Object.entries(product)) {
+        if (key.startsWith('Spec') && value) {
+            const specRow = document.createElement('tr');
+            specRow.innerHTML = `<th>${key.replace('Spec', '')}</th><td>${value}</td>`;
+            specsTableBody.appendChild(specRow);
+        }
+    }
+
     // Tambahkan tombol download PDF
     const downloadButton = document.createElement('button');
     downloadButton.innerText = 'Download Datasheet';
@@ -194,9 +207,58 @@ function displayProductDetail(product) {
         window.open(product.Datasheet, '_blank');
     });
 
-    // Tambahkan tombol ke elemen dengan id 'product-info'
-    const productInfo = document.querySelector('.product-info');
-    productInfo.appendChild(downloadButton);
+    // Tambahkan tombol ke elemen dengan id 'product-specs'
+    productSpecs.appendChild(downloadButton);
+
+    // Tampilkan produk terkait
+    displayRelatedProducts(product.Category, product.ID);
+}
+
+// Function to display related products
+function displayRelatedProducts(category, currentProductId) {
+    const cachedData = localStorage.getItem('products');
+    if (cachedData) {
+        const data = JSON.parse(cachedData);
+        const relatedProducts = data.filter(product => product.Category === category && product.ID !== currentProductId);
+        const relatedProductGrid = document.getElementById('related-product-grid');
+        const relatedProductsSection = document.getElementById('related-products');
+        
+        if (relatedProducts.length === 0) {
+            // Sembunyikan bagian "Produk Terkait" jika tidak ada produk terkait
+            relatedProductsSection.style.display = 'none';
+            return;
+        }
+
+        relatedProductGrid.innerHTML = ''; // Clear previous related products
+
+        relatedProducts.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product-card');
+            productDiv.dataset.category = product.Category;
+            productDiv.innerHTML = `
+                <img src="${product.Image}" alt="${product.Name}">
+                <div class="product-info">
+                    <h3>${product.Name}</h3>
+                </div>
+            `;
+            productDiv.addEventListener('click', function() {
+                viewProductDetail(product.ID);
+            });
+            relatedProductGrid.appendChild(productDiv);
+        });
+
+        // Add scroll functionality
+        const scrollLeft = document.getElementById('scroll-left');
+        const scrollRight = document.getElementById('scroll-right');
+
+        scrollLeft.addEventListener('click', function() {
+            relatedProductGrid.scrollBy({ left: -300, behavior: 'smooth' });
+        });
+
+        scrollRight.addEventListener('click', function() {
+            relatedProductGrid.scrollBy({ left: 300, behavior: 'smooth' });
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {

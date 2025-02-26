@@ -670,3 +670,327 @@ iframe {
 .button-small:hover {
     background-color: #005bb5;
 }
+
+/* Product Detail Styles */
+.product-detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    padding-bottom: 50px !important;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 1200px;
+}
+
+.product-image {
+    flex: 1;
+    max-width: 500px;
+    margin-right: 20px;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.product-image img:hover {
+    transform: scale(1.05);
+}
+
+.product-info {
+    flex: 2;
+    max-width: 600px;
+    position: relative; /* Tambahkan posisi relatif untuk mengatur posisi tombol */
+}
+
+.product-info h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.product-info p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.product-info .button-small {
+    padding: 10px 20px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute; /* Tambahkan posisi absolut untuk mengatur posisi tombol */
+    right: 0; /* Posisikan tombol di kanan */
+    bottom: 0; /* Posisikan tombol di bawah */
+}
+
+.product-info .button-small:hover {
+    background-color: #005bb5;
+}
+
+#product-specs {
+    margin-top: 20px;
+    position: relative; /* Tambahkan posisi relatif untuk mengatur posisi tombol */
+    padding-bottom: 20px; /* Tambahkan padding bawah untuk memberikan jarak */
+}
+
+#product-specs .button-small {
+    position: absolute; /* Tambahkan posisi absolut untuk mengatur posisi tombol */
+    right: 0; /* Posisikan tombol di kanan */
+    bottom: 0; /* Posisikan tombol di bawah spesifikasi */
+}
+
+/* Related Products Styles */
+.related-products {
+    width: 100%; /* Pastikan lebar produk terkait sama dengan produk detail */
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Atur lebar maksimum */
+    margin: 0 auto; /* Gunakan margin otomatis untuk menengahkannya */
+}
+
+.related-products-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Tambahkan ini untuk menengahkannya */
+    overflow: hidden; /* Sembunyikan overflow untuk menghilangkan scrollbar */
+    position: relative; /* Tambahkan posisi relatif untuk mengatur posisi tombol */
+}
+
+.related-products .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tampilkan 3 produk per baris */
+    gap: 20px;
+    overflow: hidden !important; /* Sembunyikan produk yang melampaui lebar grid */
+    max-width: 900px; /* Atur lebar maksimum grid */
+    margin: 0 auto; /* Gunakan margin otomatis untuk menengahkannya */
+}
+
+.related-products .product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.related-products .product-card:hover {
+    transform: scale(1.05);
+}
+
+.related-products .product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.related-products .product-card .product-info {
+    padding: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.related-products .product-card .product-info h3 {
+    margin: 0;
+    font-size: 1.2em;
+    overflow: hidden; /* Sembunyikan overflow untuk menghindari scrollbar */
+    text-overflow: ellipsis; /* Tambahkan elipsis jika teks terlalu panjang */
+    white-space: nowrap; /* Pastikan teks tidak membungkus */
+}
+
+.scroll-button {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    position: absolute; /* Tambahkan posisi absolut untuk mengatur posisi tombol */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.scroll-button.left {
+    left: -40px;
+}
+
+.scroll-button.right {
+    right: -40px;
+}
+
+.scroll-button:hover {
+    background-color: #005bb5;
+}
+
+/* Related Products Styles */
+.related-products {
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.related-products h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.related-products-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.related-products .product-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+.related-products .product-card {
+    flex: 0 0 auto;
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.related-products .product-card:hover {
+    transform: scale(1.05);
+}
+
+.related-products .product-card img {
+    width: 100%;
+    height: auto;
+}
+
+.related-products .product-card .product-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.related-products .product-card .product-info h3 {
+    margin: 0;
+    font-size: 1em;
+}
+
+.scroll-button {
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.scroll-button.left {
+    left: -40px;
+}
+
+.scroll-button.right {
+    right: -40px;
+}
+
+.scroll-button:hover {
+    background-color: #005bb5;
+}
+
+/* Product Specs Table Styles */
+.product-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.product-specs-table th, .product-specs-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.product-specs-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Product Specs Table Styles */
+.product-specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.product-specs-table th, .product-specs-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.product-specs-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Tambahkan margin pada tombol download datasheet */
+#product-specs .button-small {
+    position: absolute; /* Tambahkan posisi absolut untuk mengatur posisi tombol */
+    right: 0; /* Posisikan tombol di kanan */
+    bottom: -50px; /* Posisikan tombol di bawah spesifikasi */
+    margin-top: 20px; /* Tambahkan margin atas untuk memberikan jarak */
+}
+
+/* Media query untuk tampilan mobile */
+@media (max-width: 768px) {
+    .product-detail {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .product-image {
+        order: 1; /* Pindahkan gambar ke urutan kedua */
+        max-width: 100%;
+        margin: 20px 0;
+    }
+
+    .product-info {
+        order: 2; /* Pindahkan informasi produk ke urutan pertama */
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .product-info h2 {
+        margin-bottom: 10px;
+    }
+
+    .product-info p {
+        margin-bottom: 20px;
+    }
+}
