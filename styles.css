@@ -1008,3 +1008,47 @@ iframe {
         padding: 0px;
     }
 }
+
+/* Category Grid Styles */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Tampilkan 4 kategori per baris */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px; /* Atur lebar maksimum */
+    margin: 0 auto; /* Gunakan margin otomatis untuk menengahkannya */
+}
+
+.category-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.category-card img {
+    width: 100%;
+    height: auto;
+}
+
+.category-card h3 {
+    margin: 10px 0;
+    font-size: 1.2em;
+}
+
+/* Media query untuk tampilan mobile */
+@media (max-width: 768px) {
+    .category-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tampilkan 2 kategori per baris pada tampilan mobile */
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tampilkan 2 produk per baris pada tampilan mobile */
+    }
+}
