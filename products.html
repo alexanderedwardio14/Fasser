@@ -26,7 +26,10 @@
                 <li class="dropdown">
                     <a href="products.html" class="dropbtn" id="all-products-link">Produk</a>
                     <div class="dropdown-content" id="category-list">
-                        <!-- Kategori akan dimuat di sini -->
+                        <a href="products.html?category=Patch Cord" data-category="Patch Cord">Patch Cord</a>
+                        <a href="products.html?category=Fiber Optic Tool" data-category="Fiber Optic Tool">Fiber Optic Tool</a>
+                        <a href="products.html?category=Fiber Optic Equipment" data-category="Fiber Optic Equipment">Fiber Optic Equipment</a>
+                        <a href="products.html?category=Fiber Optic Accessory" data-category="Fiber Optic Accessory">Fiber Optic Accessory</a>
                     </div>
                 </li>
                 <li><a href="contact.html">Kontak Kami</a></li>
@@ -35,14 +38,26 @@
     </header>
     <section id="products">
         <h2>Our Products</h2>
-        <div class="product-filters">
-            <label for="category">Category:</label>
-            <select id="category">
-                <option value="all">All</option>
-                <!-- Kategori akan dimuat di sini -->
-            </select>
+        <div class="category-grid" id="category-grid">
+            <!-- Kategori akan dimuat di sini -->
+            <div class="category-card" data-category="Patch Cord">
+                <img src="./image/PatchCord.png" alt="Patch Cord">
+                <h3>Patch Cord</h3>
+            </div>
+            <div class="category-card" data-category="Fiber Optic Tool">
+                <img src="./image/FiberOpticTool.png" alt="Fiber Optic Tool">
+                <h3>Fiber Optic Tool</h3>
+            </div>
+            <div class="category-card" data-category="Fiber Optic Equipment">
+                <img src="./image/FiberOpticEquipment.png" alt="Fiber Optic Equipment">
+                <h3>Fiber Optic Equipment</h3>
+            </div>
+            <div class="category-card" data-category="Fiber Optic Accessory">
+                <img src="./image/FiberOpticAccessory.png" alt="Fiber Optic Accessory">
+                <h3>Fiber Optic Accessory</h3>
+            </div>
         </div>
-        <div class="product-grid" id="product-grid">
+        <div class="product-grid" id="product-grid" style="display: none;">
             <!-- Produk akan dimuat di sini -->
         </div>
     </section>
@@ -118,18 +133,60 @@
         });
 
         // JavaScript untuk filter produk
-        document.getElementById('category').addEventListener('change', function() {
-            const selectedCategory = this.value;
-            const products = document.querySelectorAll('.product-card');
+        document.addEventListener('DOMContentLoaded', function() {
+            const categoryCards = document.querySelectorAll('.category-card');
+            const productGrid = document.getElementById('product-grid');
+            const categoryGrid = document.getElementById('category-grid');
 
-            products.forEach(product => {
-                if (selectedCategory === 'all' || product.dataset.category === selectedCategory) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = card.dataset.category;
+                    displayProductsByCategory(category);
+                });
             });
+
+            function displayProductsByCategory(category) {
+                const cachedData = localStorage.getItem('products');
+                if (cachedData) {
+                    const data = JSON.parse(cachedData);
+                    const filteredProducts = data.filter(product => product.Category === category);
+                    productGrid.innerHTML = ''; // Clear previous products
+
+                    filteredProducts.forEach(product => {
+                        const productDiv = document.createElement('div');
+                        productDiv.classList.add('product-card');
+                        productDiv.dataset.category = product.Category;
+                        productDiv.innerHTML = `
+                            <img src="${product.Image}" alt="${product.Name}">
+                            <div class="product-info">
+                                <h3>${product.Name}</h3>
+                            </div>
+                        `;
+                        productDiv.addEventListener('click', function() {
+                            viewProductDetail(product.ID);
+                        });
+                        productGrid.appendChild(productDiv);
+                    });
+
+                    categoryGrid.style.display = 'none'; // Sembunyikan kategori
+                    productGrid.style.display = 'grid'; // Tampilkan produk
+                } else {
+                    console.error('Tidak ada data produk di localStorage');
+                }
+            }
+
+            // Check if category is specified in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const category = urlParams.get('category');
+            if (category) {
+                displayProductsByCategory(category);
+            }
         });
+
+        // Function to redirect to product detail page
+        function viewProductDetail(productId) {
+            window.location.href = `productdetail.html?id=${productId}`;
+        }
     </script>
 </body>
 </html>

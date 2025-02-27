@@ -2,76 +2,10 @@
 const sheetDBUrl = 'https://sheetdb.io/api/v1/k5wbpcwmfkwmn';
 const cacheDuration = 1 * 60 * 60 * 1000; // 1 hour in milliseconds
 
-// Load categories and products on page load
-document.addEventListener('DOMContentLoaded', function() {
-    if (document.getElementById('category-list')) {
-        const categoryList = document.getElementById('category-list');
-
-        // Check if data is already in localStorage and not expired
-        const cachedData = localStorage.getItem('products');
-        const cachedTimestamp = localStorage.getItem('productsTimestamp');
-        const now = new Date().getTime();
-
-        if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
-            const data = JSON.parse(cachedData);
-            console.log('Using cached data:', data);
-            loadCategoriesAndProducts(data);
-        } else {
-            fetch(sheetDBUrl)
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Fetched data:', data);
-                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
-                    localStorage.setItem('productsTimestamp', now); // Cache timestamp
-                    loadCategoriesAndProducts(data);
-                })
-                .catch(error => {
-                    console.error("Error getting documents: ", error);
-                });
-        }
-    }
-
-    // Check if category is specified in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    if (category) {
-        const cachedData = localStorage.getItem('products');
-        if (cachedData) {
-            const data = JSON.parse(cachedData);
-            displayProductsByCategory(category, data);
-        } else {
-            fetch(sheetDBUrl)
-                .then(response => response.json())
-                .then(data => {
-                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
-                    displayProductsByCategory(category, data);
-                })
-                .catch(error => {
-                    console.error("Error getting documents: ", error);
-                });
-        }
-    }
-});
-
-// Function to fill category dropdown in navbar
-function fillCategoryDropdown(categories) {
-    const categoryList = document.getElementById('category-list');
-    categoryList.innerHTML = ''; // Clear previous categories
-
-    categories.forEach(category => {
-        const categoryItem = document.createElement('a');
-        categoryItem.href = `products.html?category=${category}`;
-        categoryItem.innerText = category;
-        categoryList.appendChild(categoryItem);
-    });
-}
-
 // Function to load categories and products
 function loadCategoriesAndProducts(data) {
     const categorySelect = document.getElementById('category');
     const categories = [...new Set(data.map(product => product.Category))];
-
-    fillCategoryDropdown(categories); // Panggil fungsi untuk mengisi dropdown kategori di navbar
 
     categories.forEach(category => {
         const categoryOption = document.createElement('option');
@@ -112,31 +46,97 @@ function displayAllProducts(data) {
 }
 
 // Function to display products by category
-function displayProductsByCategory(category, data) {
-    const productGrid = document.getElementById('product-grid');
-    productGrid.innerHTML = ''; // Clear previous products
-    const filteredProducts = data.filter(product => product.Category === category);
-    filteredProducts.forEach(product => {
-        const productDiv = document.createElement('div');
-        productDiv.classList.add('product-card');
-        productDiv.dataset.category = product.Category;
-        productDiv.innerHTML = `
-            <img src="${product.Image}" alt="${product.Name}">
-            <div class="product-info">
-                <h3>${product.Name}</h3>
-            </div>
-        `;
-        productDiv.addEventListener('click', function() {
-            viewProductDetail(product.ID);
+function displayProductsByCategory(category) {
+    const cachedData = localStorage.getItem('products');
+    if (cachedData) {
+        const data = JSON.parse(cachedData);
+        const productGrid = document.getElementById('product-grid');
+        productGrid.innerHTML = ''; // Clear previous products
+        const filteredProducts = data.filter(product => product.Category === category);
+        filteredProducts.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product-card');
+            productDiv.dataset.category = product.Category;
+            productDiv.innerHTML = `
+                <img src="${product.Image}" alt="${product.Name}">
+                <div class="product-info">
+                    <h3>${product.Name}</h3>
+                </div>
+            `;
+            productDiv.addEventListener('click', function() {
+                viewProductDetail(product.ID);
+            });
+            productGrid.appendChild(productDiv);
         });
-        productGrid.appendChild(productDiv);
-    });
+
+        // Show product grid and hide category grid
+        document.getElementById('category-grid').style.display = 'none';
+        productGrid.style.display = 'grid';
+    } else {
+        console.error('No cached data found');
+    }
 }
 
 // Function to redirect to product detail page
 function viewProductDetail(productId) {
     window.location.href = `productdetail.html?id=${productId}`;
 }
+
+// Load categories and products on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if data is already in localStorage and not expired
+    const cachedData = localStorage.getItem('products');
+    const cachedTimestamp = localStorage.getItem('productsTimestamp');
+    const now = new Date().getTime();
+
+    if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
+        const data = JSON.parse(cachedData);
+        console.log('Using cached data:', data);
+        loadCategoriesAndProducts(data);
+    } else {
+        fetch(sheetDBUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched data:', data);
+                localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                localStorage.setItem('productsTimestamp', now); // Cache timestamp
+                loadCategoriesAndProducts(data);
+            })
+            .catch(error => {
+                console.error("Error getting documents: ", error);
+            });
+    }
+
+    // Check if category is specified in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+        const cachedData = localStorage.getItem('products');
+        if (cachedData) {
+            const data = JSON.parse(cachedData);
+            displayProductsByCategory(category);
+        } else {
+            fetch(sheetDBUrl)
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                    displayProductsByCategory(category);
+                })
+                .catch(error => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
+    }
+
+    // Add event listeners to category cards
+    const categoryCards = document.querySelectorAll('.category-card');
+    categoryCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const category = card.dataset.category;
+            displayProductsByCategory(category);
+        });
+    });
+});
 
 // Load product detail and display it on the product detail page
 document.addEventListener('DOMContentLoaded', function() {
@@ -154,7 +154,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     fetchProductDetail(productId);
                 }
-                fillCategoryDropdown([...new Set(data.map(product => product.Category))]); // Panggil fungsi untuk mengisi dropdown kategori di navbar
             } else {
                 fetchProductDetail(productId);
             }
@@ -349,3 +348,4 @@ document.addEventListener('DOMContentLoaded', function() {
         sendFormData('helpContactForm', 'help-name', 'help-email', 'help-phone', 'help-company', 'help-message', lastSubmitTime, submitDelay);
     });
 });
+
