@@ -1052,3 +1052,62 @@ iframe {
         grid-template-columns: repeat(2, 1fr); /* Tampilkan 2 produk per baris pada tampilan mobile */
     }
 }
+
+/* Sidebar Styles */
+
+
+/* Tambahkan gaya untuk container flex */
+#products {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100%; /* Pastikan elemen memiliki lebar penuh */
+    box-sizing: border-box; /* Sertakan padding dan border dalam lebar total */
+}
+
+.products-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    flex: 1;
+    max-width: 25%;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Sertakan padding dan border dalam lebar total */
+    text-align: left; /* Atur teks ke kiri */
+}
+
+/* Product Content Styles */
+.product-content {
+    flex: 3;
+    padding: 10px;
+    box-sizing: border-box; /* Sertakan padding dan border dalam lebar total */
+}
+
+/* Sidebar List Styles */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    cursor: pointer;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.sidebar ul li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Sidebar Styles */
+.sidebar ul li.clicked {
+    background-color: #d0e7ff; /* Warna latar belakang berbeda untuk item yang sudah diklik */
+    font-weight: bold; /* Opsional: Membuat teks lebih tebal */
+    margin-left: 20px;
+}
