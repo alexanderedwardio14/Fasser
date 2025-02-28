@@ -324,17 +324,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Check if category is specified in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    if (category) {
-        displayProductsByCategory(category);
-    }
-
-    // Load categories into sidebar
-    const cachedData = localStorage.getItem('products');
-    if (cachedData) {
-        const data = JSON.parse(cachedData);
+    // Function to load categories and products
+    function loadCategoriesAndProducts(data) {
         const categories = [...new Set(data.map(product => product.Category))];
         categories.forEach(category => {
             const categoryItem = document.createElement('li');
@@ -388,8 +379,51 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
+    }
+
+    // Check if products data is available in localStorage
+    const cachedData = localStorage.getItem('products');
+    const cachedTimestamp = localStorage.getItem('productsTimestamp');
+    const now = new Date().getTime();
+    const cacheDuration = 1 * 60 * 60 * 1000; // 1 hour in milliseconds
+
+    if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
+        const data = JSON.parse(cachedData);
+        console.log('Using cached data:', data);
+        loadCategoriesAndProducts(data);
     } else {
-        console.error('Tidak ada data produk di localStorage');
+        fetch('https://sheetdb.io/api/v1/k5wbpcwmfkwmn')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched data:', data);
+                localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                localStorage.setItem('productsTimestamp', now); // Cache timestamp
+                loadCategoriesAndProducts(data);
+            })
+            .catch(error => {
+                console.error("Error getting documents: ", error);
+            });
+    }
+
+    // Check if category is specified in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+        const cachedData = localStorage.getItem('products');
+        if (cachedData) {
+            const data = JSON.parse(cachedData);
+            displayProductsByCategory(category);
+        } else {
+            fetch('https://sheetdb.io/api/v1/k5wbpcwmfkwmn')
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                    displayProductsByCategory(category);
+                })
+                .catch(error => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
     }
 
     // Function to mark item as clicked
