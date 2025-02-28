@@ -595,8 +595,8 @@ iframe {
 /* Tambahkan CSS untuk tombol Help dan form */
 #help-button {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
+    bottom: 50px;
+    right: 100px;
     background-color: #0078d7;
     color: white;
     border: none;
@@ -611,15 +611,15 @@ iframe {
 }
 
 .help-icon {
-    width: 100px;
-    height: 100px;
+    width: 1000px;
+    height: 120px;
 }
 
 #help-form {
     display: none;
     position: fixed;
-    bottom: 70px;
-    right: 20px;
+    bottom: 120px;
+    right: 30px;
     background-color: white;
     border: 1px solid #ccc;
     padding: 20px;
@@ -1116,3 +1116,22 @@ iframe {
     margin-left: 30px; /* Tambahkan margin kiri untuk menggeser item ke kanan */
 }
 
+/* Our Services Styles */
+.our-services {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.our-services h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.our-services p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
