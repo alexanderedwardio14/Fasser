@@ -348,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const jenisItems = [...new Set(data.filter(product => product.Category === category).map(product => product.Jenis))];
             jenisItems.forEach(jenis => {
                 const jenisItem = document.createElement('li');
+                jenisItem.classList.add('sub-item');
                 jenisItem.innerText = jenis;
                 jenisItem.addEventListener('click', function(event) {
                     event.stopPropagation(); // Hentikan propagasi event
@@ -369,6 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const anakItems = data.filter(product => product.Jenis === jenis).map(product => product.Anak);
                 anakItems.forEach(anak => {
                     const anakItem = document.createElement('li');
+                    anakItem.classList.add('sub-item');
                     anakItem.innerText = anak;
                     anakItem.addEventListener('click', function(event) {
                         event.stopPropagation(); // Hentikan propagasi event

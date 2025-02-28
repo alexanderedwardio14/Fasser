@@ -1109,5 +1109,13 @@ iframe {
 .sidebar ul li.clicked {
     background-color: #d0e7ff; /* Warna latar belakang berbeda untuk item yang sudah diklik */
     font-weight: bold; /* Opsional: Membuat teks lebih tebal */
-    margin-left: 20px;
+    margin-left: 30px; /* Tambahkan margin kiri untuk menggeser item ke kanan */
+}
+
+.sidebar ul li.clicked .sub-item {
+    margin-left: 30px; /* Tambahkan margin kiri untuk menggeser sub-item ke kanan */
+}
+
+.sidebar ul li.clicked .sub-item.clicked {
+    margin-left: 60px; /* Tambahkan margin kiri untuk menggeser sub-sub-item lebih ke kanan */
 }
