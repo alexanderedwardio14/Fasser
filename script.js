@@ -35,7 +35,7 @@ function displayAllProducts(data) {
         productDiv.innerHTML = `
             <img src="${product.Image}" alt="${product.Name}">
             <div class="product-info">
-                <h3>${product.Name}</h3>
+                <h5>${product.Name}</h5>
             </div>
         `;
         productDiv.addEventListener('click', function() {
@@ -60,7 +60,7 @@ function displayProductsByCategory(category) {
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">
-                    <h3>${product.Name}</h3>
+                    <h5>${product.Name}</h5>
                 </div>
             `;
             productDiv.addEventListener('click', function() {
@@ -237,7 +237,7 @@ function displayRelatedProducts(category, currentProductId) {
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">
-                    <h3>${product.Name}</h3>
+                    <h5>${product.Name}</h5>
                 </div>
             `;
             productDiv.addEventListener('click', function() {
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 productDiv.innerHTML = `
                     <img src="${product.Image}" alt="${product.Name}">
                     <div class="product-info">
-                        <h3>${product.Name}</h3>
+                        <h5>${product.Name}</h5>
                     </div>
                 `;
                 productDiv.addEventListener('click', function() {
@@ -324,8 +324,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to load categories and products
-    function loadCategoriesAndProducts(data) {
+    // Check if category is specified in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+        displayProductsByCategory(category);
+    }
+
+    // Load categories into sidebar
+    const cachedData = localStorage.getItem('products');
+    if (cachedData) {
+        const data = JSON.parse(cachedData);
         const categories = [...new Set(data.map(product => product.Category))];
         categories.forEach(category => {
             const categoryItem = document.createElement('li');
@@ -348,7 +357,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const jenisItems = [...new Set(data.filter(product => product.Category === category).map(product => product.Jenis))];
             jenisItems.forEach(jenis => {
                 const jenisItem = document.createElement('li');
-                jenisItem.classList.add('sub-item');
                 jenisItem.innerText = jenis;
                 jenisItem.addEventListener('click', function(event) {
                     event.stopPropagation(); // Hentikan propagasi event
@@ -370,7 +378,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const anakItems = data.filter(product => product.Jenis === jenis).map(product => product.Anak);
                 anakItems.forEach(anak => {
                     const anakItem = document.createElement('li');
-                    anakItem.classList.add('sub-item');
                     anakItem.innerText = anak;
                     anakItem.addEventListener('click', function(event) {
                         event.stopPropagation(); // Hentikan propagasi event
@@ -381,51 +388,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
         });
-    }
-
-    // Check if products data is available in localStorage
-    const cachedData = localStorage.getItem('products');
-    const cachedTimestamp = localStorage.getItem('productsTimestamp');
-    const now = new Date().getTime();
-    const cacheDuration = 1 * 60 * 60 * 1000; // 1 hour in milliseconds
-
-    if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
-        const data = JSON.parse(cachedData);
-        console.log('Using cached data:', data);
-        loadCategoriesAndProducts(data);
     } else {
-        fetch('https://sheetdb.io/api/v1/k5wbpcwmfkwmn')
-            .then(response => response.json())
-            .then(data => {
-                console.log('Fetched data:', data);
-                localStorage.setItem('products', JSON.stringify(data)); // Cache data
-                localStorage.setItem('productsTimestamp', now); // Cache timestamp
-                loadCategoriesAndProducts(data);
-            })
-            .catch(error => {
-                console.error("Error getting documents: ", error);
-            });
-    }
-
-    // Check if category is specified in URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('category');
-    if (category) {
-        const cachedData = localStorage.getItem('products');
-        if (cachedData) {
-            const data = JSON.parse(cachedData);
-            displayProductsByCategory(category);
-        } else {
-            fetch('https://sheetdb.io/api/v1/k5wbpcwmfkwmn')
-                .then(response => response.json())
-                .then(data => {
-                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
-                    displayProductsByCategory(category);
-                })
-                .catch(error => {
-                    console.error("Error getting documents: ", error);
-                });
-        }
+        console.error('Tidak ada data produk di localStorage');
     }
 
     // Function to mark item as clicked
@@ -459,7 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 productDiv.innerHTML = `
                     <img src="${product.Image}" alt="${product.Name}">
                     <div class="product-info">
-                        <h3>${product.Name}</h3>
+                        <h5>${product.Name}</h5>
                     </div>
                 `;
                 productDiv.addEventListener('click', function() {
