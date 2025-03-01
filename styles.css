@@ -165,13 +165,28 @@ iframe {
     margin-top: 2rem;
 }
 
-.vision, .mission {
+.vision, .mission{
     flex: 1;
     max-width: 500px;
     background: #f9f9f9;
     padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    opacity: 0.85;
+}
+
+.aboutus-container{
+    max-width: 1055px;
+    background: #f9f9f9;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    opacity: 0.85;
+}
+.aboutus-container h2{
+    color: #0078d7;
+    margin-bottom: 1rem;
 }
 
 .vision h3, .mission h3 {
@@ -189,7 +204,7 @@ iframe {
     justify-content: center;
     gap: 10rem;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 0;
     background-color: grey;
     color: white;
     text-align: justify;
@@ -256,6 +271,14 @@ iframe {
 }
 
 /* About Section Styles */
+#about {
+    background-image: url('./image/background-bendera.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.8); /* Background putih dengan transparansi */
+}
+
 #about p {
     max-width: 1080px; /* Anda bisa menyesuaikan nilai ini sesuai kebutuhan */
     margin: 0 auto; /* Untuk memusatkan paragraf */
@@ -1118,20 +1141,32 @@ iframe {
 
 /* Our Services Styles */
 .our-services {
-    max-width: 800px;
+    max-width: 12000px;
     margin: 0 auto;
     padding: 20px;
-    text-align: left;
+    text-align: Left;
     font-family: Arial, sans-serif;
     line-height: 1.6;
+    background-image: url('./image/background-homepage.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: rgba(255, 255, 255, 0.8); /* Background putih dengan transparansi */
+}
+
+.content-body{
+    max-width: 800px;
+    padding-left: 0%;
 }
 
 .our-services h2 {
     font-size: 2em;
     margin-bottom: 20px;
+    color:#ffffff
 }
 
 .our-services p {
     margin-bottom: 10px;
-    font-size: 1.1em;
+    font-size: 1em;
+    color: #FFFFFF;
 }
