@@ -202,12 +202,44 @@ iframe {
 .blackbox {
     display: flex;
     justify-content: center;
-    gap: 10rem;
+    gap: 1rem;
     flex-wrap: wrap;
     margin-top: 0;
     background-color: grey;
     color: white;
     text-align: justify;
+    font-size:0.8rem;
+}
+
+.blackbox img {
+    max-width: 50%;
+    height: auto;
+}
+
+.blackbox .aboutus{
+    flex: 1;
+    max-width: 500px;
+    padding: min(0.5em, 8%);
+    text-align: left; 
+}
+
+.blackbox .customersupport{
+    flex: 1;
+    max-width: 300px;
+    padding: min(0.5em, 8%);
+    text-align: left; 
+}
+
+.blackbox .link{
+    flex: 1;
+    max-width: 300px;
+    width: 300px;
+    padding: min(0.5em, 8%);
+    text-align: left; 
+}
+
+.blackbox .containercustomersupportlink{
+    display: flex;
 }
 
 .blackbox a {
