@@ -50,7 +50,7 @@ nav {
     position: relative;
 }
 
-.nav-list :hover{
+.nav-list li:hover{
     background-color: rgb(36, 44, 112);
 }
 
