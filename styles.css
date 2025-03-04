@@ -10,26 +10,48 @@ body {
     overflow-x: hidden; /* Tambahkan ini untuk menghindari overflow horizontal */
 }
 
-/* Header Styles */
-header {
+.top-bar {
+    width: 100%;
+    height: 30px; /* Atur tinggi garis merah */
+    background-color: red; /* Warna garis merah */
+    color: white; /* Warna teks */
+    text-align: center; /* Pusatkan teks */
+    line-height: 30px; /* Vertikal pusatkan teks */
+    font-weight: bold; /* Tambahkan ketebalan font */
+}
+
+.headertop{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background: linear-gradient(90deg, #0078d7, #00c6ff);
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
     background-image: url('./image/menubar.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    
     color: white;
     width: 100%; /* Pastikan header memiliki lebar 100% */
     box-sizing: border-box; /* Tambahkan ini untuk memastikan padding dan border termasuk dalam lebar */
+    position: relative;
 }
 
 header img {
     height: 50px; /* Sesuaikan tinggi logo */
     margin-right: auto; /* Tambahkan ini untuk menempatkan logo di kiri */
 }
+
 
 /* Navigation Styles */
 nav {
@@ -491,12 +513,15 @@ button:hover {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-direction: row;
     margin: 20px auto;
     max-width: 1200px;
     padding: 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 0px;
 }
+
 
 .product-image {
     flex: 2;
@@ -512,6 +537,7 @@ button:hover {
     flex: 2;
     display: flex;
     flex-direction: column;
+    
 }
 
 .product-info h2 {
@@ -647,6 +673,7 @@ button:hover {
         width: 100%;
         /*background-color: white; /* Adjust as needed */
         z-index: 1000;
+        
     }
 
     body {
@@ -662,6 +689,16 @@ button:hover {
         width: 100%;
         background-color: white; /* Adjust as needed */
         box-shadow: none; /* Remove shadow on mobile */
+    }
+
+    .headertop img{
+        margin-left: 26vh;
+        margin-top: 5px;
+        
+    }
+
+    .top-bar{
+        height: 60px;
     }
 
     body {
@@ -841,6 +878,7 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-width: 1200px; /* Atur lebar maksimum */
     margin: 0 auto; /* Gunakan margin otomatis untuk menengahkannya */
+    min-height: 0px;
 }
 
 .related-products-container {
