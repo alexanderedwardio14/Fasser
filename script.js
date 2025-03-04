@@ -35,7 +35,7 @@ function displayAllProducts(data) {
         productDiv.innerHTML = `
             <img src="${product.Image}" alt="${product.Name}">
             <div class="product-info">
-                <h5>${product.Name}</h5>
+                <h1>${product.Name}</h1>
             </div>
         `;
         productDiv.addEventListener('click', function() {
@@ -60,7 +60,7 @@ function displayProductsByCategory(category) {
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">
-                    <h5>${product.Name}</h5>
+                    <h1>${product.Name}</h1>
                 </div>
             `;
             productDiv.addEventListener('click', function() {
@@ -237,7 +237,7 @@ function displayRelatedProducts(category, currentProductId) {
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">
-                    <h5>${product.Name}</h5>
+                    <h1>${product.Name}</h1>
                 </div>
             `;
             productDiv.addEventListener('click', function() {
@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 productDiv.innerHTML = `
                     <img src="${product.Image}" alt="${product.Name}">
                     <div class="product-info">
-                        <h5>${product.Name}</h5>
+                        <h1>${product.Name}</h1>
                     </div>
                 `;
                 productDiv.addEventListener('click', function() {
@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 productDiv.innerHTML = `
                     <img src="${product.Image}" alt="${product.Name}">
                     <div class="product-info">
-                        <h5>${product.Name}</h5>
+                        <h1>${product.Name}</h1>
                     </div>
                 `;
                 productDiv.addEventListener('click', function() {

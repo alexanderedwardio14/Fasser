@@ -470,6 +470,10 @@ button:hover {
     white-space: nowrap; /* Pastikan teks tidak membungkus */
 }
 
+.product-info h1 {
+    font-size: 0.83em;
+}
+
 .product-filters {
     margin-bottom: 20px;
 }
