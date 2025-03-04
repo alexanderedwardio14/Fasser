@@ -39,7 +39,7 @@ function displayAllProducts(data) {
             </div>
         `;
         productDiv.addEventListener('click', function() {
-            viewProductDetail(product.ID);
+            viewProductDetail(product.SpecType);
         });
         productGrid.appendChild(productDiv);
     });
@@ -64,7 +64,7 @@ function displayProductsByCategory(category) {
                 </div>
             `;
             productDiv.addEventListener('click', function() {
-                viewProductDetail(product.ID);
+                viewProductDetail(product.SpecType);
             });
             productGrid.appendChild(productDiv);
         });
@@ -78,8 +78,8 @@ function displayProductsByCategory(category) {
 }
 
 // Function to redirect to product detail page
-function viewProductDetail(productId) {
-    window.location.href = `productdetail.html?id=${productId}`;
+function viewProductDetail(productSpectype) {
+    window.location.href = `productdetail.html?SpecType=${productSpectype}`;
 }
 
 // Load categories and products on page load
@@ -142,28 +142,28 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('product-detail')) {
         const urlParams = new URLSearchParams(window.location.search);
-        const productId = urlParams.get('id');
+        const productSpectype = urlParams.get('SpecType');
 
-        if (productId) {
+        if (productSpectype) {
             const cachedData = localStorage.getItem('products');
             if (cachedData) {
                 const data = JSON.parse(cachedData);
-                const product = data.find(p => p.ID === productId);
+                const product = data.find(p => p.SpecType === productSpectype);
                 if (product) {
                     displayProductDetail(product);
                 } else {
-                    fetchProductDetail(productId);
+                    fetchProductDetail(productSpectype);
                 }
             } else {
-                fetchProductDetail(productId);
+                fetchProductDetail(productSpectype);
             }
         }
     }
 });
 
 // Function to fetch product detail from SheetDB
-function fetchProductDetail(productId) {
-    fetch(`${sheetDBUrl}/search?ID=${productId}`)
+function fetchProductDetail(productSpectype) {
+    fetch(`${sheetDBUrl}/search?SpecType=${productSpectype}`)
         .then(response => response.json())
         .then(data => {
             console.log(data); // Log data to console
@@ -241,7 +241,7 @@ function displayRelatedProducts(category, currentProductId) {
                 </div>
             `;
             productDiv.addEventListener('click', function() {
-                viewProductDetail(product.ID);
+                viewProductDetail(product.SpecType);
             });
             relatedProductGrid.appendChild(productDiv);
         });
@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
                 productDiv.addEventListener('click', function() {
-                    viewProductDetail(product.ID);
+                    viewProductDetail(product.SpecType);
                 });
                 productGrid.appendChild(productDiv);
             });
@@ -437,8 +437,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to redirect to product detail page
-    function viewProductDetail(productId) {
-        window.location.href = `productdetail.html?id=${productId}`;
+    function viewProductDetail(productSpectype) {
+        window.location.href = `productdetail.html?SpecType=${productSpectype}`;
     }
 
     // Function to display products by Jenis
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 `;
                 productDiv.addEventListener('click', function() {
-                    viewProductDetail(product.ID);
+                    viewProductDetail(product.SpecType);
                 });
                 productGrid.appendChild(productDiv);
             });
@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = JSON.parse(cachedData);
             const product = data.find(product => product.Anak === anak);
             if (product) {
-                viewProductDetail(product.ID);
+                viewProductDetail(product.SpecType);
             } else {
                 console.error('Produk tidak ditemukan');
             }
@@ -546,8 +546,6 @@ function sendFormData(formId, nameId, emailId, phoneId, companyId, messageId, la
 
 // Inisialisasi EmailJS dan tambahkan event listener pada form
 document.addEventListener('DOMContentLoaded', function() {
-    
-
     let lastSubmitTime = 0;
     const submitDelay = 30000; // 30 detik
 
@@ -560,4 +558,128 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault(); // Mencegah form submit default
         sendFormData('helpContactForm', 'help-name', 'help-email', 'help-phone', 'help-company', 'help-message', lastSubmitTime, submitDelay);
     });
+
+    // Load categories and products on page load
+    const cachedData = localStorage.getItem('products');
+    const cachedTimestamp = localStorage.getItem('productsTimestamp');
+    const now = new Date().getTime();
+    const cacheDuration = 1 * 60 * 60 * 1000; // 1 hour in milliseconds
+
+    if (cachedData && cachedTimestamp && (now - cachedTimestamp < cacheDuration)) {
+        const data = JSON.parse(cachedData);
+        console.log('Using cached data:', data);
+        loadCategoriesAndProducts(data);
+    } else {
+        fetch(sheetDBUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Fetched data:', data);
+                localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                localStorage.setItem('productsTimestamp', now); // Cache timestamp
+                loadCategoriesAndProducts(data);
+            })
+            .catch(error => {
+                console.error("Error getting documents: ", error);
+            });
+    }
+
+    // Check if category is specified in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('category');
+    if (category) {
+        const cachedData = localStorage.getItem('products');
+        if (cachedData) {
+            const data = JSON.parse(cachedData);
+            displayProductsByCategory(category);
+        } else {
+            fetch(sheetDBUrl)
+                .then(response => response.json())
+                .then(data => {
+                    localStorage.setItem('products', JSON.stringify(data)); // Cache data
+                    displayProductsByCategory(category);
+                })
+                .catch(error => {
+                    console.error("Error getting documents: ", error);
+                });
+        }
+    }
+
+    // Add event listeners to category cards
+    const categoryCards = document.querySelectorAll('.category-card');
+    categoryCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const category = card.dataset.category;
+            displayProductsByCategory(category);
+        });
+    });
+
+    // Load product detail and display it on the product detail page
+    if (document.getElementById('product-detail')) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productSpectype = urlParams.get('SpecType');
+
+        if (productSpectype) {
+            const cachedData = localStorage.getItem('products');
+            if (cachedData) {
+                const data = JSON.parse(cachedData);
+                const product = data.find(p => p.SpecType === productSpectype);
+                if (product) {
+                    displayProductDetail(product);
+                } else {
+                    fetchProductDetail(productSpectype);
+                }
+            } else {
+                fetchProductDetail(productSpectype);
+            }
+        }
+    }
 });
+
+// Function to display products by Jenis
+function displayProductsByJenis(jenis) {
+    const cachedData = localStorage.getItem('products');
+    if (cachedData) {
+        const data = JSON.parse(cachedData);
+        const filteredProducts = data.filter(product => product.Jenis === jenis);
+        const productGrid = document.getElementById('product-grid');
+        productGrid.innerHTML = ''; // Clear previous products
+
+        filteredProducts.forEach(product => {
+            const productDiv = document.createElement('div');
+            productDiv.classList.add('product-card');
+            productDiv.dataset.jenis = product.Jenis;
+            productDiv.innerHTML = `
+                <img src="${product.Image}" alt="${product.Name}">
+                <div class="product-info">
+                    <h1>${product.Name}</h1>
+                </div>
+            `;
+            productDiv.addEventListener('click', function() {
+                viewProductDetail(product.SpecType);
+            });
+            productGrid.appendChild(productDiv);
+        });
+
+        const categoryGrid = document.getElementById('category-grid');
+        categoryGrid.style.display = 'none'; // Sembunyikan kategori
+        productGrid.style.display = 'grid'; // Tampilkan produk
+    } else {
+        console.error('Tidak ada data produk di localStorage');
+    }
+}
+
+// Function to redirect to product detail page by Anak
+function viewProductDetailByAnak(anak) {
+    const cachedData = localStorage.getItem('products');
+    if (cachedData) {
+        const data = JSON.parse(cachedData);
+        const product = data.find(product => product.Anak === anak);
+        if (product) {
+            viewProductDetail(product.SpecType);
+        } else {
+            console.error('Produk tidak ditemukan');
+        }
+    } else {
+        console.error('Tidak ada data produk di localStorage');
+    }
+}
