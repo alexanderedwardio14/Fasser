@@ -1251,6 +1251,7 @@ button:hover {
 .content-body{
     max-width: 800px;
     padding-left: 0%;
+    margin:auto 8%;
 }
 
 .our-services h2 {
