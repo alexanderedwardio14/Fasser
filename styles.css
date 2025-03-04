@@ -646,9 +646,8 @@ button:hover {
         position: fixed;
         top: 0;
         width: 100%;
-        background-color: white; /* Adjust as needed */
+        /*background-color: white; /* Adjust as needed */
         z-index: 1000;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better visibility */
     }
 
     body {
