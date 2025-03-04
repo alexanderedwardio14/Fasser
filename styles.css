@@ -679,6 +679,10 @@ button:hover {
         z-index: 1000;
         
     }
+    .carousel{
+        max-width: 1200px;
+        margin: 25px auto;
+    }
 
     body {
         padding-top: 60px; /* Adjust based on the height of your header */
