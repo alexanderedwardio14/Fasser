@@ -21,7 +21,6 @@ header {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.1); /* Background putih dengan transparansi */
     color: white;
     width: 100%; /* Pastikan header memiliki lebar 100% */
     box-sizing: border-box; /* Tambahkan ini untuk memastikan padding dan border termasuk dalam lebar */
