@@ -1242,25 +1242,41 @@ button:hover {
 
 /* Our Services Styles */
 .our-services {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
     max-width: 12000px;
     margin: 0 auto;
     padding: 20px;
     text-align: Left;
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-image: url('./image/background-homepage.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.1); /* Background putih dengan transparansi */
-    background-blend-mode: lighten;
-    
+    background-color: rgb(48, 79, 139); /* Background putih dengan transparansi */
+    align-content: center;
+    justify-content: space-around;
+    min-height: 0px;
+}
+.our-services::before{
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 80px 3000px;
+    border-color: transparent transparent #2E7CBB transparent;
+    position: absolute;
+    top: 60px;
+}
+
+@media (max-width: 768px){
+    .our-services::before{
+        top: 150px;
+    }
 }
 
 .content-body{
     max-width: 800px;
-    padding-left: 0%;
-    margin:auto 8%;
+    /*padding-left: 0%;
+    margin:auto 8%;*/
 }
 
 .our-services h2 {
