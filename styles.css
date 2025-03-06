@@ -87,15 +87,16 @@ nav {
 
 .menu-toggle {
     display: none;
-    flex-direction: column;
     cursor: pointer;
 }
 
 .menu-toggle .bar {
-    height: 3px;
+    display: block;
     width: 25px;
-    background-color: white;
-    margin: 4px 0;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #333;
+    transition: all 0.3s ease-in-out;
 }
 
 /* Dropdown Styles */
@@ -580,6 +581,14 @@ button:hover {
 
     .vision, .mission {
         max-width: 100%;
+    }
+
+    .image-body img{
+        max-width: 100%;
+    }
+
+    .help-icon{
+        max-height: 100%;
     }
 
     .blackbox {
@@ -1280,4 +1289,43 @@ button:hover {
     margin-bottom: 10px;
     font-size: 1em;
     color: #FFFFFF;
+}
+
+/* Mobile menu styles */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.menu-toggle .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #333;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+}
+
+.nav-list.active {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-list {
+        display: none;
+        flex-direction: column;
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
 }
