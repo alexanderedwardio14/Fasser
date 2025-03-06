@@ -68,6 +68,7 @@ nav {
     gap: 1rem;
     margin: 0;
     padding: 0;
+    margin-right: 40vw;
 }
 
 .nav-list li {
@@ -706,6 +707,9 @@ button:hover {
     .headertop img{
         margin-left: 26vh;
         margin-top: 5px;
+       
+    /* Magic! */
+        max-width: 100px;
         
     }
 
