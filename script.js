@@ -260,23 +260,7 @@ function displayRelatedProducts(category, currentProductId) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const menuToggle = document.getElementById('mobile-menu');
-    const navList = document.querySelector('.nav-list');
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    document.body.appendChild(overlay);
 
-    menuToggle.addEventListener('click', function() {
-        navList.classList.toggle('active');
-        overlay.classList.toggle('active');
-    });
-
-    overlay.addEventListener('click', function() {
-        navList.classList.remove('active');
-        overlay.classList.remove('active');
-    });
-});
 
 
 
@@ -683,3 +667,5 @@ function viewProductDetailByAnak(anak) {
         console.error('Tidak ada data produk di localStorage');
     }
 }
+
+

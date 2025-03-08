@@ -155,6 +155,26 @@
             event.preventDefault(); // Mencegah form submit default
             sendFormData('helpContactForm', 'help-name', 'help-email', 'help-phone', 'help-company', 'help-message');
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('mobile-menu');
+    const navList = document.querySelector('.nav-list');
+    const overlay = document.createElement('div');
+    overlay.className = 'overlay';
+    document.body.appendChild(overlay);
+
+    menuToggle.addEventListener('click', function() {
+        
+        navList.classList.toggle('active');
+        overlay.classList.toggle('active');
+    });
+
+    overlay.addEventListener('click', function() {
+        
+        navList.classList.remove('active');
+        overlay.classList.remove('active');
+    });
+});
+
     </script>
 </body>
 </html>
