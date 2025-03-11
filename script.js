@@ -32,6 +32,7 @@ function displayAllProducts(data) {
         const productDiv = document.createElement('a');
         productDiv.classList.add('product-card');
         productDiv.dataset.category = product.Category;
+        productDiv.href = `productdetail.html?SpecType=${product.SpecType}`;
         productDiv.innerHTML = `
             <img src="${product.Image}" alt="${product.Name}">
             <div class="product-info">
@@ -57,6 +58,7 @@ function displayProductsByCategory(category) {
             const productDiv = document.createElement('a');
             productDiv.classList.add('product-card');
             productDiv.dataset.category = product.Category;
+            productDiv.href = `productdetail.html?SpecType=${product.SpecType}`;
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">
@@ -234,6 +236,7 @@ function displayRelatedProducts(category, currentProductId) {
             const productDiv = document.createElement('a');
             productDiv.classList.add('product-card');
             productDiv.dataset.category = product.Category;
+            productDiv.href = `productdetail.html?SpecType=${product.SpecType}`;
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">
@@ -289,6 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productDiv = document.createElement('a');
                 productDiv.classList.add('product-card');
                 productDiv.dataset.category = product.Category;
+                productDiv.href = `productdetail.html?SpecType=${product.SpecType}`;
                 productDiv.innerHTML = `
                     <img src="${product.Image}" alt="${product.Name}">
                     <div class="product-info">
@@ -438,6 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const productDiv = document.createElement('a');
                 productDiv.classList.add('product-card');
                 productDiv.dataset.jenis = product.Jenis;
+                productDiv.href = `productdetail.html?SpecType=${product.SpecType}`;
                 productDiv.innerHTML = `
                     <img src="${product.Image}" alt="${product.Name}">
                     <div class="product-info">
@@ -632,6 +637,7 @@ function displayProductsByJenis(jenis) {
             const productDiv = document.createElement('a');
             productDiv.classList.add('product-card');
             productDiv.dataset.jenis = product.Jenis;
+            productDiv.href = `productdetail.html?SpecType=${product.SpecType}`;
             productDiv.innerHTML = `
                 <img src="${product.Image}" alt="${product.Name}">
                 <div class="product-info">

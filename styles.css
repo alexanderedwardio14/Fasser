@@ -451,6 +451,8 @@ button:hover {
     justify-content: space-between;
 }
 
+
+
 .product-card:hover {
     transform: scale(1.05);
 }
@@ -1328,4 +1330,10 @@ button:hover {
     .nav-list.active {
         display: flex;
     }
+}
+
+
+a.product-card  {
+    text-decoration: none;
+    color: black;
 }
