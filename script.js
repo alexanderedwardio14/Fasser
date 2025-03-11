@@ -29,7 +29,7 @@ function displayAllProducts(data) {
     const productGrid = document.getElementById('product-grid');
     productGrid.innerHTML = ''; // Clear previous products
     data.forEach(product => {
-        const productDiv = document.createElement('div');
+        const productDiv = document.createElement('a');
         productDiv.classList.add('product-card');
         productDiv.dataset.category = product.Category;
         productDiv.innerHTML = `
@@ -54,7 +54,7 @@ function displayProductsByCategory(category) {
         productGrid.innerHTML = ''; // Clear previous products
         const filteredProducts = data.filter(product => product.Category === category);
         filteredProducts.forEach(product => {
-            const productDiv = document.createElement('div');
+            const productDiv = document.createElement('a');
             productDiv.classList.add('product-card');
             productDiv.dataset.category = product.Category;
             productDiv.innerHTML = `
@@ -231,7 +231,7 @@ function displayRelatedProducts(category, currentProductId) {
         relatedProductGrid.innerHTML = ''; // Clear previous related products
 
         relatedProducts.forEach(product => {
-            const productDiv = document.createElement('div');
+            const productDiv = document.createElement('a');
             productDiv.classList.add('product-card');
             productDiv.dataset.category = product.Category;
             productDiv.innerHTML = `
@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
             productGrid.innerHTML = ''; // Clear previous products
 
             filteredProducts.forEach(product => {
-                const productDiv = document.createElement('div');
+                const productDiv = document.createElement('a');
                 productDiv.classList.add('product-card');
                 productDiv.dataset.category = product.Category;
                 productDiv.innerHTML = `
@@ -435,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
             productGrid.innerHTML = ''; // Clear previous products
 
             filteredProducts.forEach(product => {
-                const productDiv = document.createElement('div');
+                const productDiv = document.createElement('a');
                 productDiv.classList.add('product-card');
                 productDiv.dataset.jenis = product.Jenis;
                 productDiv.innerHTML = `
@@ -629,7 +629,7 @@ function displayProductsByJenis(jenis) {
         productGrid.innerHTML = ''; // Clear previous products
 
         filteredProducts.forEach(product => {
-            const productDiv = document.createElement('div');
+            const productDiv = document.createElement('a');
             productDiv.classList.add('product-card');
             productDiv.dataset.jenis = product.Jenis;
             productDiv.innerHTML = `
